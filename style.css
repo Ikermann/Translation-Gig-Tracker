@@ -1,0 +1,57 @@
+/* styles.css - minimal */
+:root{
+    --bg: #f7f7fb;
+    --card: #ffffff;
+    --accent: #0f62fe;
+    --muted: #666;
+    --pad: 16px;
+    --radius: 10px;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: inter, system-ui, Arial, sans-serif;
+    background: var(--bg);
+    color: #111;
+    line-height: 1.4;
+    padding: 20px;
+  }
+
+  .site-header {
+    margin-bottom: 19px;
+  }
+
+  .container {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+  }
+  
+  /*main list*/
+
+  #gig-list {
+    flex: 2;
+  }
+
+  .gig-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /*aside controls*/
+
+  #controls {
+    flex: 1;
+    background: var(--card);
+    padding: var(--pad);
+    border-radius: var(--radius);
+    box-shadow: 0 6px 18px rgba(20, 20, 40, 0.3)
+  }
+
+  .site-footer {
+    margin-top: 20px;
+    color: var(--muted);
+  }
