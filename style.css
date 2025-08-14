@@ -1,3 +1,5 @@
+/* styles.css: Styles for Translation Gig Tracker */
+
 /* styles.css - minimal */
 :root{
     --bg: #f7f7fb;
@@ -19,6 +21,7 @@
     padding: 20px;
   }
 
+  /* Header styles */
   .site-header {
     margin-bottom: 19px;
   }
@@ -51,6 +54,12 @@
     box-shadow: 0 6px 18px rgba(20, 20, 40, 0.3)
   }
 
+  #gig-form {
+    display: none;
+  }
+
+  /*footer styles*/
+  
   .site-footer {
     margin-top: 20px;
     color: var(--muted);
