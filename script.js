@@ -5,65 +5,78 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Translation Gig Tracker Ready');
     console.log('form-testing');
 
+    //------ LocalStorage setup -------
+    // Load saved gigs from localStorage (or start with an empty array)
 let gigsData = JSON.parse(localStorage.getItem("gigs")) || [];
 
- // Updates footer year automatically
+ //--------- Footer year ------------
 const yearEl = document.getElementById('year'); 
-yearEl.textContent = new Date().getFullYear(); // Make sure an element with id="year" exists
+yearEl.textContent = new Date().getFullYear(); 
 
 
- // Create a simple placeholder card
- const gigs = document.getElementById('gigs');
-// Adds a new placeholder gig card when "Add Gig" button is clicked
+ // ----- Form & Button -----
 const addBtn = document.getElementById('add-gig-btn');
 const gigForm = document.getElementById('gig-form');
+const gigs = document.getElementById('gigs');
 
-   gigsData.forEach(gig => {
-   const gigCard = document.createElement('div');
-   gigCard.className = 'gig-card';
-   gigCard.innerHTML = `<strong>Client Name:${gig.client}</strong><p class="muted">Date:${gig.date}</p>`;
-   gigs.prepend(gigCard);
 
-   });
-
+// Show form when clicking "Add Gig" button
 addBtn.addEventListener('click', () => {
     gigForm.style.display = "block";
 });
 
+
+// ----- Render existing gigs on page load ----
+   gigsData.forEach(gig => {
+   const gigCard = document.createElement('div');
+   gigCard.className = 'gig-card-new';
+   gigCard.innerHTML = `<strong>Client Name: ${gig.client}</strong><p class="muted">Date: ${gig.date}</p>`;
+   gigs.prepend(gigCard);
+
+   setTimeout(() => {
+  gigCard.classList.remove('new');
+ }, 300);
+
+   });
+
+
+
+ // ----- Handle new gig submissions -----
  gigForm.addEventListener('submit', (event) => {
+    event.preventDefault(); // prevent for from refreshing the page
 
-    event.preventDefault(); // stops the form from reloading the page
 
+    // get form values
     const client = gigForm.querySelector('input[name="client"]').value;
     const date = gigForm.querySelector('input[name="date"]').value;
 
-      if(client.trim() === "" || date.trim() === "") {
 
+     // Ignore empty submissions
+      if(client.trim() === "" || date.trim() === "") {
         return;
     }
 
-    //new gig object
+    
+    // Create new gig object
     const newGig = { client, date };
 
-    //add it to the gigs array
+    // Add to gigs array & save in localStorage
     gigsData.push(newGig);
-
-    //save array back to local storage
     localStorage.setItem("gigs", JSON.stringify(gigsData));
     
  
+    // Create and display a new card
     const gigCard = document.createElement('div');
     gigCard.className = 'gig-card';
     gigCard.innerHTML = `<strong>Client Name:${client}</strong><p class="muted">Date:${date}</p>`;
-    gigs.prepend(gigCard); // Add the new card to the top of the gig list
-
-    gigForm.style.display = "none"; // hide form again
-
-     gigForm.reset(); //reset input
+    gigs.prepend(gigCard); 
 
 
- });
+    // Hide and reset form
+    gigForm.style.display = "none";
+     gigForm.reset(); 
 
+  });
 
 });
 
